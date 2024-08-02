@@ -1,0 +1,80 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    justify-content: center;
+    margin: 0%;
+    padding: 0%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.main{
+    width: 90vw;
+}
+/* menu style */
+.menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90vw;
+}
+input[type="text"]{
+    height: 2.2rem;
+    margin: 0px;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+}
+#searchbtn{
+    height: 2.2rem;
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+}
+.svg{
+    width: 2.5rem;
+    margin: 2rem;
+}
+header{
+    width: 90vw;
+    text-align: center;
+}
+/* favorite meal style */
+.fav-meal{
+    display: flex;
+    overflow-x: scroll;
+    background-color: aliceblue;
+    width: 90vw;
+}
+.my-fav{
+    padding: 1rem;
+}
+.my-fav img{
+    width: 8rem;
+    border-radius: 5rem;
+}
+.active{
+    color: red;
+}
+.random{
+    width: 90vw;
+    text-align: center;
+}
+.random-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 1rem;
+    place-items: center;
+    width: auto;
+}
+.random-meal{
+    width: 20rem;
+}
+.random-meal img{
+    width: 20rem;
+}
+.format{
+    display:flex;
+    justify-content: space-between;
+}
