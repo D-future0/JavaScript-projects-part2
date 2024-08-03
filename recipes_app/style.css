@@ -41,7 +41,7 @@ header{
     text-align: center;
 }
 /* favorite meal style */
-.fav-meal{
+.favMeal-container{
     display: flex;
     overflow-x: scroll;
     background-color: aliceblue;
