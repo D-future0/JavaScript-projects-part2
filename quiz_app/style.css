@@ -69,3 +69,6 @@ label{
 label:hover{
     text-decoration: underline;
 }
+@media only screen and (min-width: 768px) and (orientation: portrait) {
+    /* styles to apply on screens with a maximum width of 768px in portrait mode */
+  }

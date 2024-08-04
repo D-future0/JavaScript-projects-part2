@@ -44,15 +44,31 @@ header{
 .favMeal-container{
     display: flex;
     overflow-x: scroll;
+    list-style-type: none;
     background-color: aliceblue;
     width: 90vw;
 }
 .my-fav{
+    position: relative;
     padding: 1rem;
+    cursor: pointer;
 }
+.my-fav:hover .remove{
+    opacity: 1;
+} 
 .my-fav img{
     width: 8rem;
     border-radius: 5rem;
+}
+.my-fav p{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 8rem;
+    position: absolute;
+    left: 15px;
+    bottom: -15px;
 }
 .active{
     color: red;
@@ -61,20 +77,32 @@ header{
     width: 90vw;
     text-align: center;
 }
-.random-container{
+.meal-container{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     gap: 1rem;
     place-items: center;
-    width: auto;
+    width: 80vw;
 }
-.random-meal{
+.meals{
     width: 20rem;
 }
-.random-meal img{
+.meals img{
     width: 20rem;
 }
 .format{
     display:flex;
     justify-content: space-between;
 }
+.my-fav .remove{
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    width: 20px;
+    opacity: 0;
+}
+@media only screen and (min-width: 768px) and (orientation: portrait) {
+    .meal-container{
+        grid-template-columns: 1fr;
+    }
+  }

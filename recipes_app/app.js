@@ -1,36 +1,51 @@
 const favMealContainer = document.querySelector(`.favMeal-container`)
-const randomMeal = document.querySelector(`.random-meal`)
+const mealContainer = document.querySelector(`.meal-container`)
+const searchtext = document.querySelector(`#searchtext`)
+const searchbtn = document.querySelector(`#searchbtn`)
+
+//fetch random meal
 function randomMeals() {
-  async function dailyBread2() {
+  async function dailyBread() {
     const resp = await fetch(
       "https://www.themealdb.com/api/json/v1/1/random.php"
     );
     const data = await resp.json();
     const meals = data.meals;
     const mealsId = data.meals[0].idMeal;
-    console.log(data.meals);
-    let displaymeal = meals.map((meal) => {
-      return `<img src="${meal.strMealThumb}" />
-            <div class="meal">
-              <p>${meal.strMeal}</p><button type="submit" id="${meal.idMeal}" class="addToFav">love</button>
-            </div>`;
-    });
-    randomMeal.innerHTML = displaymeal;
-    const selectFav = document.querySelector(".addToFav");
-    selectFav.addEventListener(`click`, (e) => {
-      const id = e.target.id;
-      if(selectFav.classList.contains(`active`)){
-        removeFromLocalstorage(id)
-        selectFav.classList.remove(`active`);
-      }
-      else{
-        addFavToLocalStorage(id)
-        selectFav.classList.add(`active`);
-      }
-      ;
-    });
+    displaycontent(meals)
   }
-  dailyBread2();
+  dailyBread();
+}
+//display content
+const displaycontent = (meals, mealsId)=>{
+  let displaymeal = meals.map((meal) => {
+    const div = document.createElement(`div`)
+    div.classList.add(`meals`)
+  div.innerHTML =  `<img src="${meal.strMealThumb}" />
+          <div class="meal">
+            <p>${meal.strMeal}</p><button type="submit" id="${meal.idMeal}" class="addToFav">love</button>
+          </div>`;
+          const selectFav = div.querySelector(".addToFav");
+          selectFav.addEventListener(`click`, (e) => {
+            // location.reload()
+            const id = e.target.id;
+            if(selectFav.classList.contains(`active`)){
+              removeFromLocalstorage(id)
+              selectFav.classList.remove(`active`);
+            }
+            else{
+              addFavToLocalStorage(id)
+              selectFav.classList.add(`active`);
+            }
+            favMealContainer.innerHTML = ``
+            // mealContainer.innerHTML = ``
+            updateFavmeals();
+            // randomMeals();
+          });
+          mealContainer.append(div);
+  });
+ 
+
 }
 
 // local storage functionalities
@@ -51,18 +66,25 @@ async function getMealsById(id){
   );
   const data = await resp.json();
   const meals = data.meals[0];
+  // console.log(meals)
+  return meals
+}
+//fetch meal by search 
+async function getMealsBySearch(text){
+  const resp = await fetch(
+    "https://www.themealdb.com/api/json/v1/1/search.php?s=" + text
+  );
+  const data = await resp.json();
+  const meals = data.meals;
   console.log(meals)
   return meals
 }
 
-async function updateFavmeals (){
+async function updateFavmeals(){
 let mealIds = getFavFromLocalStorage()
-// let favMeals = []
 for (let index = 0; index < mealIds.length; index++) {
   let mealId = mealIds[index];
   const meals = await getMealsById(mealId)
-  // favMeals.push(meals)
-  // console.log(meals)
   displayFav(meals)
 }
 
@@ -72,10 +94,27 @@ const displayFav  = (meals)=>{
   favMeal.innerHTML =  `<li class="my-fav">
             <img src="${meals.strMealThumb}" alt="favorite meal" />
             <p>${meals.strMeal}</p>
+            <button type="button" id="${meals.idMeal}" class="removeBtn"><img src="./images/trash-can-solid.svg" alt="" class="remove"/></button>
           </li>`;
-  favMealContainer.appendChild(favMeal)
 
+          const removeBtm = favMeal.querySelector(`.removeBtn`)
+          removeBtm.addEventListener(`click`, ()=>{
+            removeFromLocalstorage(meals.idMeal)
+            favMealContainer.innerHTML = ``
+            updateFavmeals()
+            
+          })
+  favMealContainer.appendChild(favMeal)
 }
+
+searchbtn.addEventListener(`click`, async(e)=>{
+  // e.preventDefault
+  const searchMeal = searchtext.value;
+  const meals = await getMealsBySearch(searchMeal)
+  displaycontent(meals)
+})
+
+// updateSearch()
 function setupApp(){
    randomMeals();
    updateFavmeals()
