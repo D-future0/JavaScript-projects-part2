@@ -13,6 +13,7 @@ function randomMeals() {
     const data = await resp.json();
     const meals = data.meals;
     const mealsId = data.meals[0].idMeal;
+    
     // displaycontent(meals)
     altDisplay(meals)
   }
@@ -44,8 +45,9 @@ const displaycontent = (meals)=>{
           });
           const showMeal = meals[0]
           const mealInfo = div.querySelector(`.showInfo`)
-          mealInfo.addEventListener(`click`, ()=>{
+          mealInfo.addEventListener(`click`, (event)=>{
             displayMealInfo(showMeal)
+            event.stopPropagation()
             console.log(`hello`)
           })
 
@@ -55,7 +57,10 @@ const displaycontent = (meals)=>{
 
 }
 const altDisplay = (meals)=>{
-  for (let index = 0; index <= meals.length - 1; index++) {
+  mealContainer.addEventListener(`onload`, ()=>{
+    console.log(`onload`)
+  })
+  for (let index = 0; index < meals.length; index++) {
     const meal = meals[index];
     console.log(meal);
     const div = document.createElement(`div`)
@@ -78,16 +83,19 @@ const altDisplay = (meals)=>{
             }
             favMealContainer.innerHTML = ``
             updateFavmeals();
+            displayMealInfo(meal)
           });
           // const showMeal = meals[0]
           const mealInfo = div.querySelector(`.showInfo`)
-          mealInfo.addEventListener(`click`, ()=>{
+          mealInfo.addEventListener(`click`, (event)=>{
             displayMealInfo(meal)
+            event.stopPropagation()
             console.log(meal)
             console.log(`hello`)
           })
 
           mealContainer.append(div);
+          
   }
 }
 
@@ -137,7 +145,8 @@ const displayFav  = (meals)=>{
             updateFavmeals() 
           })
           const mealInfo = li.querySelector(`.showInfo`)
-          mealInfo.addEventListener(`click`, ()=>{
+          mealInfo.addEventListener(`click`, (event)=>{
+            event.stopPropagation()
             displayMealInfo(meals)
           })
   favMealContainer.appendChild(li)
@@ -154,12 +163,16 @@ async function getMealsBySearch(text){
   return meals
 }
 searchbtn.addEventListener(`click`, async()=>{
-  mealContainer.innerHTML = ``
+  // mealContainer.innerHTML = ``
   const searchMeal = searchtext.value;
   const meals = await getMealsBySearch(searchMeal)
   console.log(meals)
-  // displaycontent(meals)
-  altDisplay(meals)
+  if(meals){
+// displaycontent(meals)
+altDisplay(meals)
+  } else{
+    mealContainer.innerHTML=`<h5>can not find meal</h5>`
+  }
 })
 const displayMealInfo = (meals)=>{
   const div = document.createElement(`div`)
@@ -180,7 +193,7 @@ const displayMealInfo = (meals)=>{
           ${ingredients.map(ingredient => `<li>${ingredient}</li>`).join(``)}
           </ul></div>`;
           const closeBtn = div.querySelector(`#closeBtn`)
-          closeBtn.addEventListener(`click`, ()=>{
+          closeBtn.addEventListener(`click`, (event)=>{
             mealInfoContainer.classList.remove(`popup`)
               mealInfoContainer.innerHTML = ``
           })
