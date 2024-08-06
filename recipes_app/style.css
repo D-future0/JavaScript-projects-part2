@@ -7,6 +7,7 @@ body{
     margin: 0%;
     padding: 0%;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
 }
 .main{
     width: 90vw;
@@ -14,12 +15,13 @@ body{
 /* menu style */
 .menu{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 90vw;
+    height: 10vh;
 }
 input[type="text"]{
-    height: 2.2rem;
+    height: 2.5rem;
     margin: 0px;
     border: 2px solid black;
     border-radius: 10px;
@@ -33,8 +35,8 @@ input[type="text"]{
     font-size: 20px;
 }
 .svg{
-    width: 2.5rem;
-    margin: 2rem;
+    width: 2.2rem;
+    /* margin: 2rem; */
 }
 header{
     width: 90vw;
@@ -82,7 +84,7 @@ header{
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     gap: 1rem;
     place-items: center;
-    width: 80vw;
+    width: auto;
 }
 .meals{
     width: 20rem;
@@ -101,8 +103,58 @@ header{
     width: 20px;
     opacity: 0;
 }
-@media only screen and (min-width: 768px) and (orientation: portrait) {
+.mealInfo-container{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(13, 13, 14, 0.37);
+    z-index: 3;
+}
+.popup{
+    display: flex;  
+}
+.mealInfo img{
+    width: 20rem;
+    /* padding-left: 7rem; */
+}
+
+.mealInfo li{
+    text-align: left;
+}
+.mealInfo{
+    position: relative;
+    max-height: 600px;
+   max-width: 450px;
+    background-color: aliceblue;
+
+}
+.details{
+    overflow-y: scroll;
+    max-height: 600px
+}
+.instructions{
+    padding: 0px 10px;
+    text-align: left;
+}
+.close{
+    position:absolute;
+    top: 0px;
+    left: 0px;
+}
+#closeBtn{
+    border: none;
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+}
+/* @media screen and (min-width: 768px) and (orientation: portrait) {
     .meal-container{
         grid-template-columns: 1fr;
+        width: 100vw;
     }
-  }
+  } */

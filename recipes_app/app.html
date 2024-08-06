@@ -4,27 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>Recipes</title>
   </head>
   <body>
     <div class="main">
       <header>
         <div class="menu">
-          <img src="/images/bars-solid.svg" alt="menu" class="svg" />
-          
+          <!-- <div>
+            
+          </div> -->
             <input
               type="text"
               name="search-text"
               id="searchtext"
               placeholder="search meal"
             />
-            <button type="submit" id="searchbtn">search</button>
-          
-          <!-- <img
-            src="/images/magnifying-glass-solid.svg"
-            alt="search"
-            class="svg"
-          /> -->
+            <button type="submit" id="searchbtn"><img
+              src="/images/magnifying-glass-solid.svg"
+              alt="search"
+              class="svg"
+            /></button>
         </div>
         <h2>favorite meal</h2>
         <ul class="favMeal-container"></ul>
@@ -32,9 +31,9 @@
       <section class="random">
         <h1>Random meal</h1>
         <div class="meal-container">
-          <!-- <div class="meals"></div> -->
+          <div class="mealInfo-container"></div>
+        </div>
       </section>
-    </div>
     <script src="app.js"></script>
   </body>
 </html>
