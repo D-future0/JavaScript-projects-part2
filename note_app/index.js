@@ -1,8 +1,11 @@
 const addNote = document.querySelector(`#add-note`)
 const noteCenter = document.querySelector(`.note-center`)
 
-console.log(addNote)
 addNote.addEventListener(`click`, ()=>{
+addToNote()
+})
+
+const addToNote = ()=>{
     const div = document.createElement(`div`)
     div.classList.add(`note`)
     div.innerHTML = `<div class="tool-bar">
@@ -12,12 +15,12 @@ addNote.addEventListener(`click`, ()=>{
 <div class="main"></div>
 <textarea name="text" class="text hide"></textarea>`;
 
-noteCenter.appendChild(div)
 
-const edit = document.querySelector(`.edit`)
-const trash = document.querySelector(`.trash`)
-const main = document.querySelector(`.main`)
-const text = document.querySelector(`textarea`)
+
+const edit = div.querySelector(`.edit`)
+const trash = div.querySelector(`.trash`)
+const main = div.querySelector(`.main`)
+const text = div.querySelector(`textarea`)
 
 edit.addEventListener(`click`, ()=>{
     main.classList.toggle(`hide`)
@@ -25,12 +28,19 @@ edit.addEventListener(`click`, ()=>{
 })
 trash.addEventListener(`click`, (e)=>{
     // const trashNote = e.target.parentElement.parentElement
-    // note.remove()
+    div.remove()
 })
 text.addEventListener(`input`, (e)=>{
-const{ value } = e.target
+const { value } = e.target
 console.log(value)
 main.innerHTML = `${marked.parse(value)}`
 })
-
-})
+noteCenter.appendChild(div)
+}
+const addToLs = ()=>{
+    localStorage.setItem(`pages`, JSON.stringify([...getFromLs(), note])) 
+ }
+ const getFromLs = ()=>{
+     return JSON.parse(localStorage.getItem(`pages`)) === null ? [] : JSON.parse(localStorage.getItem(`pages`)) ;
+ }
+ window.

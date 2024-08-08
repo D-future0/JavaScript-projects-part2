@@ -7,10 +7,12 @@ body{
     background-color: aliceblue;
 }
 .note-center{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 1rem;
+    place-items: center;
+    width: 90vw;
+    margin-top: 1rem;
 }
 #add-note{
     position: fixed;
